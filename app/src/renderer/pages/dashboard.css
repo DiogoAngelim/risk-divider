@@ -1,0 +1,442 @@
+  .improved-portfolio p {
+    @apply mx-auto mt-0 mb-[120rem] text-dark-two text-center leading-[1.5] max-w-[550rem];
+  }
+
+  @layer components {
+
+
+
+    .text-style-6 {
+      @apply text-custom-lg leading-tight text-dark font-[300];
+    }
+
+
+
+
+
+
+
+    .portfolio-container:before {
+      @apply fixed w-screen h-[100%] top-[55%] bg-white left-0 z-[-10];
+      content: '';
+    }
+
+    .legend5 {
+      @apply grid grid-cols-auto-fit-103 gap-[20rem] flex-[0_0_100%] max-w-[none];
+    }
+
+    .legend {
+      @apply text-[20rem] gap-[10rem] h-[40rem] flex items-center;
+    }
+
+    .legend>div {
+      @apply w-[10rem] h-[10rem] rounded-[90rem];
+    }
+
+
+    #portfolio-distribution {
+      position: relative;
+      top: -16px;
+    }
+
+
+
+
+
+    #chart1 .detail {
+      @apply max-h-[100%] relative text-[14rem] h-[100%] w-0 border-l-[1rem] border-iris border-solid;
+    }
+
+
+
+    #chart1 .detail.left table {
+      @apply left-[20rem] absolute;
+    }
+
+
+
+    #chart1 .detail table th:first-of-type {
+      @apply opacity-0;
+    }
+
+    #chart1 .detail table tr:last-of-type td {
+      @apply pb-[8rem];
+    }
+
+    #chart1 .detail table tr:first-of-type th {
+      @apply pt-[8rem];
+    }
+
+    #chart1 .detail table td,
+    #chart1 .detail table th {
+      @apply py-[4rem] px-[16rem];
+    }
+
+
+
+    #chart1 .detail table .swatch div {
+      @apply h-[20rem] w-[20rem] rounded-[80rem];
+    }
+
+    #chart1 .detail table .swatch.chart1-optimal div {
+      @apply bg-denim-blue;
+    }
+
+    #chart1 .detail table .swatch.chart1-current div {
+      @apply bg-pale-gold;
+    }
+
+    #chart1 .detail table .swatch {
+      @apply w-[20rem];
+    }
+
+    #chart1 .detail .dot {
+      @apply w-[14rem] h-[14rem] border-0 mt-0 rounded-[8rem] -ml-[6rem] absolute;
+    }
+
+    #chart1 .detail .dot.chart1-optimal {
+      @apply bg-iris;
+    }
+
+    #chart1 .detail .dot.chart1-optimal:after {
+      content: '';
+      @apply bg-iris w-[6rem] h-[6rem] top-[4rem] left-[4rem] border-[2rem] border-white border-solid z-[10] absolute rounded-[80rem];
+    }
+
+    #chart1 .detail .dot.chart1-optimal:before {
+      content: '';
+      @apply bg-iris/30 w-[24rem] h-[24rem] top-[-5rem] left-[-5rem] border-[1rem] border-iris border-solid z-[10] absolute rounded-[80rem];
+    }
+
+    #chart1 .detail .dot.chart1-current {
+      @apply bg-pale-gold;
+    }
+
+    #chart1 .detail .dot.chart1-current:after {
+      content: '';
+      @apply bg-pale-gold w-[6rem] h-[6rem] top-[4rem] left-[4rem] border-[2rem] border-white border-solid z-[10] absolute rounded-[80rem];
+    }
+
+    #chart1 .detail .dot.chart1-current:before {
+      content: '';
+      @apply bg-pale-gold/30 w-[24rem] h-[24rem] top-[-5rem] left-[-5rem] border-[1rem] border-pale-gold border-solid z-[10] absolute rounded-[80rem];
+    }
+
+    #chart1X {
+      @apply h-[30rem];
+    }
+
+    .rickshaw_graph .y_ticks path,
+    .rickshaw_graph .x_ticks_d3 path,
+    .rickshaw_graph .x_ticks_d3 line {
+      @apply hidden;
+    }
+
+
+
+
+    #chart1 {
+      @apply h-[514rem];
+    }
+
+    [id*="chart"]#chart1Legend {
+      overflow: unset;
+      @apply h-0;
+    }
+
+    #chart1,
+    #chart1~#chart2X,
+    #chart1~#chart1X {
+      @apply w-full;
+    }
+
+    #chart1~#chart2X svg,
+    #chart1~#chart1X svg {
+      @apply max-w-[100%];
+    }
+
+    #chart1 svg {
+      @apply h-[100%] fill-[none];
+    }
+
+    #chart1 svg .chart2-current,
+    #chart1 svg .chart1-current {
+      fill-opacity: 0.1;
+      @apply stroke-pale-gold stroke-[3rem];
+    }
+
+    #chart1 .detail.right table {
+      @apply -left-[260rem];
+    }
+
+
+
+    #chart2 .detail table,
+    #chart1 .detail table {
+      border-style: hidden;
+      @apply text-right relative z-[100] bg-white rounded-[8rem] border-collapse w-[310rem] shadow-[0_0_0_1rem_#cfd6de];
+    }
+
+
+
+    #chart2 .detail table td,
+    #chart1 .detail table td {
+      @apply text-dark-two;
+    }
+
+    #chart1 .detail .dot.chart2-current,
+    #chart1 .detail .dot.chart1-current {
+      @apply bg-pale-gold absolute;
+    }
+
+    #chart1 .detail .dot.chart2-current:after,
+    #chart1 .detail .dot.chart1-current:after {
+      content: '';
+      @apply bg-pale-gold w-[6rem] h-[6rem] top-[4rem] left-[4rem] border-[2rem] border-white border-solid z-[10] absolute rounded-[80rem];
+    }
+
+    #chart1 .detail .dot.chart2-current:before,
+    #chart1 .detail .dot.chart1-current:before {
+      content: '';
+      @apply bg-pale-gold/30 w-[24rem] h-[24rem] top-[-5rem] left-[-5rem] border-[1rem] border-pale-gold border-solid z-[10] absolute rounded-[80rem];
+    }
+
+    .asset-chart {
+      @apply h-1/2 absolute bottom-0 -left-[3rem] rounded-[16rem] overflow-hidden w-[calc(100%+10rem)];
+    }
+
+    .asset-chart svg path {
+      transform: scale(1.1);
+    }
+
+    #chart1 {
+      @apply relative;
+      clip-path: inset(0 0 2px 0);
+    }
+
+    .improved-portfolio {
+      @apply text-center;
+    }
+
+
+
+    .performance-items {
+      @apply flex items-center justify-between;
+    }
+
+    .performance-items li {
+      @apply bg-white rounded-[8rem] border border-cloudy-blue relative flex-[0_0_calc(20%_+_70rem)] max-w-[calc(20%_+_70rem)];
+    }
+
+    .performance-items li.dividend-yield {
+      @apply flex-[0_0_190rem] max-w-[190rem];
+    }
+
+    .performance-items li .performance-item-content {
+      @apply py-[45rem] px-[40rem];
+    }
+
+    .performance-items li .performance-item-content .regular-investment {
+      @apply flex items-center;
+    }
+
+    .performance-items li [class^="icon-"]:not(.icon-edit),
+    .performance-items li [class*=" icon-"]:not(.icon-edit) {
+      @apply absolute -top-[10rem] -left-[12rem] text-[40rem];
+    }
+
+    .performance-items li .icon-edit {
+      @apply cursor-pointer;
+    }
+
+    .expected-performance-chart {
+      @apply mt-[24rem] flex;
+    }
+
+    .expected-performance-chart ul {
+      @apply border-r border-cloudy-blue min-w-[200rem];
+    }
+
+    .expected-performance-chart ul li {
+      @apply py-[35rem] px-[32rem];
+    }
+
+    .expected-performance-chart ul li:not(:last-child) {
+      @apply border-b border-cloudy-blue;
+    }
+
+    .expected-performance-chart .chart-wrapper {
+      @apply pt-[30rem] pr-[30rem] pb-0 pl-[30rem] h-[100%] flex-[0_0_calc(100%_-_200rem)] max-w-[calc(100%_-_200rem)];
+    }
+
+    .expected-performance-chart .chart-wrapper #chart1Legend {
+      @apply p-0 bg-transparent;
+    }
+
+    .expected-performance-chart .chart-wrapper #chart1Legend ul {
+      @apply flex border-0 m-0;
+    }
+
+    .expected-performance-chart .chart-wrapper #chart1Legend ul li {
+      @apply border-0 p-0;
+    }
+
+    .expected-performance-chart .chart-wrapper #chart1Legend ul li .swatch {
+      @apply hidden;
+    }
+
+    .expected-performance-chart .chart-wrapper #chart1Legend ul li .label {
+      @apply rounded-[30rem] py-[3rem] px-[8rem];
+    }
+
+    .expected-performance-chart .chart-wrapper #chart1Legend ul li:first-of-type .label {
+      @apply bg-iris text-white mr-[10rem];
+    }
+
+    .expected-performance-chart .chart-wrapper #chart1Legend ul li:last-of-type .label {
+      @apply bg-pale-gold text-dark-two mr-[10rem];
+    }
+
+    .comparison-box {
+      @apply p-[65rem];
+    }
+
+    .comparison-box .comparison-table {
+      @apply text-center flex justify-center items-end;
+    }
+
+    .comparison-box .comparison-table .current-portfolio {
+      @apply bg-iris/10 rounded-[18rem];
+    }
+
+    .comparison-box .comparison-table .current-portfolio .title {
+      @apply text-white rounded-[30rem] bg-iris relative py-[6rem] px-[35rem];
+    }
+
+    .comparison-box .comparison-table .optimal-portfolio {
+      @apply bg-pale-gold/10 rounded-[18rem];
+    }
+
+    .comparison-box .comparison-table .optimal-portfolio .title {
+      @apply rounded-[30rem] bg-pale-gold relative py-[6rem] px-[35rem];
+    }
+
+    .comparison-box .comparison-table .assets li {
+      @apply font-bold w-[200rem];
+    }
+
+    .comparison-box .comparison-table li {
+      @apply w-[200rem];
+    }
+
+    .comparison-box .comparison-table li:not(:first-of-type):not(:last-of-type) {
+      @apply border-b-[1rem] border-b border-solid border-black/10;
+    }
+
+    .comparison-box .comparison-table li:not(.title) {
+      @apply p-[12rem] text-[18rem];
+    }
+
+    .comparison-box .form-switch {
+      @apply text-center mt-[50rem] cursor-pointer select-none flex justify-center items-center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .investment-period {
+      @apply inline w-full outline-0 mr-[10rem] border-0;
+    }
+
+    .recommendations-wrapper p {
+      @apply max-w-[700rem] mx-auto;
+    }
+
+    .recommendations-wrapper .recommendations-box {
+      @apply flex items-center justify-center flex-wrap max-w-[800rem] mx-auto;
+    }
+
+    .recommendations-wrapper .recommendations-box li {
+      @apply mx-[10rem] max-w-[180rem] min-w-[140rem] mb-[20rem] relative flex-[0_0_calc(25%_-_12rem)];
+    }
+
+    .recommendations-wrapper .recommendations-box li .buy-sell-tag {
+      @apply absolute top-[15rem] left-0 text-white w-[90rem] rounded-tr-[50rem] rounded-br-[50rem] py-[3rem];
+    }
+
+    .recommendations-wrapper .recommendations-box li .buy-sell-tag.comprar {
+      @apply bg-[#65ba8a];
+    }
+
+    .recommendations-wrapper .recommendations-box li .buy-sell-tag.vender {
+      @apply bg-[#cd6262];
+    }
+
+    .recommendations-wrapper .recommendations-box li .recommendations-item {
+      @apply h-[160rem] flex flex-col items-center justify-center;
+    }
+
+    .spinner-wrapper {
+      @apply top-0 fixed z-[10000000] w-full;
+    }
+
+    .chart-wrapper {
+      @apply w-full relative;
+    }
+
+    #chart1X {
+      @apply relative -top-[30rem];
+    }
+
+    #chart1X text {
+      @apply text-[11rem] text-dark;
+    }
+
+    #chart1X svg {
+      position: static;
+    }
+
+    .chart1-optimal path {
+      fill-opacity: 0.2;
+      @apply stroke-iris stroke-[2.5rem];
+    }
+
+    .chart1-current path {
+      @apply stroke-pale-gold stroke-[3.54rem];
+    }
+
+    .swatch div {
+      @apply h-[20rem] w-[20rem] rounded-[80rem];
+    }
+
+    #chart1Legend .swatch {
+      @apply absolute h-[20rem] w-full py-[3rem] px-[8rem] rounded-[30rem];
+    }
+
+    #chart1Legend .line {
+      @apply relative flex items-center;
+    }
+
+    .chart1-optimal .label {
+      @apply text-white;
+    }
+
+    #chart1Legend .label {
+      @apply text-[14rem] relative py-[3rem] px-[10rem];
+    }
+
+    #chart1Legend ul {
+      @apply flex gap-[28rem] top-[24rem] relative left-[40rem];
+    }
+
+    .radarChart svg {
+      @apply max-w-[100%] my-0 mx-auto;
+    }
+
+    .radarChart {
+      @apply text-center;
+    }
+
+    .line.chart1-current {
+      @apply text-style-22;
+    }
+
+  }
