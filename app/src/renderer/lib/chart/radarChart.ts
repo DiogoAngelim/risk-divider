@@ -23,7 +23,7 @@ export interface RadarChartOptions {
 export default function RadarChart(id: string, data: RadarSeries[], options?: Partial<RadarChartOptions>) {
   ensureD3().then((d3) => {
 
-  const cfg: RadarChartOptions = {
+    const cfg: RadarChartOptions = {
       w: 600,
       h: 600,
       margin: { top: 20, right: 20, bottom: 20, left: 20 },
@@ -37,7 +37,7 @@ export default function RadarChart(id: string, data: RadarSeries[], options?: Pa
       strokeWidth: 1,
       roundStrokes: false,
       color: d3.scale.category10(),
-  opacity: () => 0.2
+      opacity: () => 0.2
     };
 
 
@@ -144,7 +144,7 @@ export default function RadarChart(id: string, data: RadarSeries[], options?: Pa
       .attr('x', function (_d: string, i: number) { return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice * i - Math.PI / 2); })
       .attr('y', function (_d: string, i: number) { return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice * i - Math.PI / 2); })
       .text(function (d: string) { return d; })
-  .call(wrap, cfg.wrapWidth);
+      .call(wrap, cfg.wrapWidth);
 
 
     axis.append('circle')
@@ -173,14 +173,14 @@ export default function RadarChart(id: string, data: RadarSeries[], options?: Pa
     blobWrapper
       .append('path')
       .attr('class', 'radarArea')
-  .attr('d', function (d: RadarSeries) { return radarLine(d); })
+      .attr('d', function (d: RadarSeries) { return radarLine(d); })
       .style('fill', function (_d: RadarSeries, i: number) { return cfg.color(i) === '#fdd368' ? 'url("#diagonal-stripe-1")' : cfg.color(i); })
-  .style('fill-opacity', function (_d: RadarSeries, i: number) { return cfg.opacity(i); });
+      .style('fill-opacity', function (_d: RadarSeries, i: number) { return cfg.opacity(i); });
 
 
     blobWrapper.append('path')
       .attr('class', 'radarStroke')
-  .attr('d', function (d: RadarSeries) { return radarLine(d); })
+      .attr('d', function (d: RadarSeries) { return radarLine(d); })
       .style('stroke-width', cfg.strokeWidth + 'px')
       .style('stroke', function (_d: RadarSeries, i: number) { return cfg.color(i); })
       .style('fill', 'none')
@@ -235,14 +235,14 @@ export default function RadarChart(id: string, data: RadarSeries[], options?: Pa
       });
 
 
-  function wrap(text: unknown, width: number) {
-  (text as unknown as { each: (cb: (this: SVGTextElement) => void) => void }).each(function (this: SVGTextElement) {
+    function wrap(text: unknown, width: number) {
+      (text as unknown as { each: (cb: (this: SVGTextElement) => void) => void }).each(function (this: SVGTextElement) {
         const textSel = d3.select(this);
         const words = textSel.text().split(/\s+/).reverse();
         let word: string | undefined;
         let line: string[] = [];
         let lineNumber = 0;
-  const lineHeight = 1.4;
+        const lineHeight = 1.4;
         const y = textSel.attr('y');
         const x = textSel.attr('x');
         const dy = parseFloat(textSel.attr('dy'));

@@ -9,14 +9,14 @@ export default defineConfig({
   },
   build: {
     minify: 'terser',
-        terserOptions: {
-          compress: {
-            drop_console: true,
-            drop_debugger: true,
-            pure_funcs: ['console.log'],
-          },
-          mangle: true,
-        },
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log'],
+      },
+      mangle: true,
+    },
     cssMinify: true,
     sourcemap: false,
     rollupOptions: {

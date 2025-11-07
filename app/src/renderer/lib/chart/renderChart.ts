@@ -200,7 +200,7 @@ export default async function renderChart(exchange: string = 'US'): Promise<void
         .attr("stroke", "transparent")
         .style("pointer-events", "all");
 
-      
+
 
       iconGroup.on("click", () => {
         const names = (data || []).map(d => d.name);

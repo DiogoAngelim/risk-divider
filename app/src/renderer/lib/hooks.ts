@@ -14,7 +14,7 @@ export function useAssetPath(assetPath: string): string {
     }).catch((error) => {
       console.warn('Failed to resolve asset path:', error);
       if (isMounted) {
-  setResolvedPath(assetPath);
+        setResolvedPath(assetPath);
       }
     });
 

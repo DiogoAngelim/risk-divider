@@ -73,12 +73,12 @@ export default function DashboardPage() {
   }, [assets]);
 
   const hasVisibleSell = useMemo(() => {
-  if (!hasHoldings) return false;
+    if (!hasHoldings) return false;
     const hypotheticalActions = rebalancePortfolio(
       assets,
       optimalWeights,
-  0,
-  true,
+      0,
+      true,
       portfolioValue
     );
     return hypotheticalActions.some(a => a.action === 'sell' && a.quantity !== 0 && !Number.isNaN(a.quantity));
