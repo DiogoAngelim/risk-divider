@@ -19,10 +19,8 @@ export default function Asset({ suggestion, country, onRemove }: AssetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Map exchange codes to country codes for formatting
   const countryMap: Record<string, string> = {
     B3: 'BR',
-    // add more mappings if needed
   };
   const displayCountry = countryMap[country] || country;
   const openPrice = closePrices.at(-2) ?? 0;
@@ -100,24 +98,19 @@ export default function Asset({ suggestion, country, onRemove }: AssetProps) {
             pattern.setAttribute('patternUnits', 'userSpaceOnUse');
             pattern.setAttribute('width', '6');
             pattern.setAttribute('height', '6');
-
             const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
             g.setAttribute('fill', '#e1e7eb');
-
             const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
             bg.setAttribute('width', '100%');
             bg.setAttribute('height', '100%');
             bg.setAttribute('fill', '#eff4fe');
             g.appendChild(bg);
-
             const p1 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
             p1.setAttribute('points', '5 0 6 0 0 6 0 5');
             g.appendChild(p1);
-
             const p2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
             p2.setAttribute('points', '6 5 6 6 5 6');
             g.appendChild(p2);
-
             defs.appendChild(pattern);
             pattern.appendChild(g);
           }

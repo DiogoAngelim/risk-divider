@@ -33,7 +33,6 @@ export function updateRecommendedIcon(assets?: Asset[]): void {
         assets: assets?.map(a => ({ symbol: a.symbol, name: a.name }))
       });
 
-      // More robust comparison with better debugging
       const allAdded = recommended.length > 0 && recommended.every((rec: string) => {
         const found = have.some(h => h.symbol === rec || h.name === rec);
         console.log(`Checking if ${rec} is in assets:`, found, have);
@@ -42,7 +41,6 @@ export function updateRecommendedIcon(assets?: Asset[]): void {
 
       console.log("All recommended assets added:", allAdded);
 
-      // Only target the icon within the recommended chart
       svg.selectAll(".icon path").remove();
 
       const pathD = allAdded

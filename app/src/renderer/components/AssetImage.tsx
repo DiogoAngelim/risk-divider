@@ -7,13 +7,9 @@ interface AssetImageProps {
   className?: string;
   width?: number;
   height?: number;
-  isAssetImage?: boolean; // true for dynamic API images, false for static assets
+  isAssetImage?: boolean;
 }
 
-/**
- * Enhanced image component that handles both static assets and dynamic images
- * in both development and production environments
- */
 export default function AssetImage({
   src,
   alt,
@@ -22,14 +18,11 @@ export default function AssetImage({
   height,
   isAssetImage = true
 }: AssetImageProps) {
-  // For dynamic asset images (from API), use transformImagePath then resolve
   const dynamicImagePath = isAssetImage && src ? transformImagePath(src) : null;
   const resolvedDynamicPath = useAssetPath(dynamicImagePath || '');
 
-  // For static fallback icon, resolve the path
   const fallbackPath = useAssetPath(getFallbackIcon());
 
-  // Determine which path to use
   const imageSrc = dynamicImagePath && src ? resolvedDynamicPath : fallbackPath;
 
   return (
@@ -51,9 +44,6 @@ interface StaticImageProps {
   height?: number | string;
 }
 
-/**
- * Component for static images that need path resolution
- */
 export function StaticImage({ src, alt, className, width, height }: StaticImageProps) {
   const resolvedPath = useAssetPath(src);
 

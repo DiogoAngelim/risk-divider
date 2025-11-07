@@ -85,25 +85,20 @@ async function createWindow() {
     mainWindow.webContents.send('investment', store.get('investment'));
   });
 
-  // Disable dev tools keyboard shortcuts in production
   if (isProduction) {
     mainWindow.webContents.on('before-input-event', (event, input) => {
-      // Disable F12
       if (input.key === 'F12') {
         event.preventDefault();
       }
       
-      // Disable Ctrl+Shift+I (Windows/Linux) and Cmd+Option+I (Mac)
       if ((input.control || input.meta) && input.shift && input.key === 'I') {
         event.preventDefault();
       }
       
-      // Disable Ctrl+Shift+J (Windows/Linux) and Cmd+Option+J (Mac) - Console
       if ((input.control || input.meta) && input.shift && input.key === 'J') {
         event.preventDefault();
       }
       
-      // Disable Ctrl+U (Windows/Linux) and Cmd+Option+U (Mac) - View Source
       if ((input.control || input.meta) && input.key === 'U') {
         event.preventDefault();
       }

@@ -1,11 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { getAssetPath } from './imageUtils';
 
-/**
- * Hook to resolve asset paths for both development and production
- * @param assetPath - The asset path starting with /
- * @returns The resolved asset path
- */
 export function useAssetPath(assetPath: string): string {
   const [resolvedPath, setResolvedPath] = useState<string>(assetPath);
 
@@ -19,7 +14,7 @@ export function useAssetPath(assetPath: string): string {
     }).catch((error) => {
       console.warn('Failed to resolve asset path:', error);
       if (isMounted) {
-        setResolvedPath(assetPath); // Fallback to original path
+  setResolvedPath(assetPath);
       }
     });
 
@@ -31,15 +26,9 @@ export function useAssetPath(assetPath: string): string {
   return resolvedPath;
 }
 
-/**
- * Hook to resolve multiple asset paths at once
- * @param assetPaths - Array of asset paths starting with /
- * @returns Array of resolved asset paths in the same order
- */
 export function useAssetPaths(assetPaths: string[]): string[] {
   const [resolvedPaths, setResolvedPaths] = useState<string[]>(assetPaths);
 
-  // Memoize the serialized paths to avoid unnecessary re-renders
   const serializedPaths = useMemo(() => JSON.stringify(assetPaths), [assetPaths]);
 
   useEffect(() => {
@@ -54,7 +43,7 @@ export function useAssetPaths(assetPaths: string[]): string[] {
       .catch((error) => {
         console.warn('Failed to resolve asset paths:', error);
         if (isMounted) {
-          setResolvedPaths(assetPaths); // Fallback to original paths
+          setResolvedPaths(assetPaths);
         }
       });
 

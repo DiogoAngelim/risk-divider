@@ -25,7 +25,6 @@ const renderPieChart: RenderPieChart = (dataset, dom_element_to_append_to, color
   const container = getContainer(dom_element_to_append_to);
   if (!container) return;
 
-  // Ensure D3 is available, then render (async load safe; function remains void)
   ensureD3()
     .then((d3: D3Global) => {
       try {
@@ -34,8 +33,6 @@ const renderPieChart: RenderPieChart = (dataset, dom_element_to_append_to, color
         const height = width;
         const radius = Math.min(width, height) / 2;
         const donutWidth = 75;
-
-        // mark all enabled by default if missing
         dataset.forEach((item) => { if (typeof item.enabled === 'undefined') item.enabled = true; });
 
         // color scale (support d3 v3 via ordinal, fallback to category10)

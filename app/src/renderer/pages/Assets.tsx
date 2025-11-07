@@ -109,7 +109,6 @@ export default function AssetsPage() {
     return () => window.removeEventListener("recommended:add", onRecommendedAdd as EventListener);
   }, [country]);
 
-  // Ensure the recommended icon stays in sync with assets
   useEffect(() => {
     updateRecommendedIcon(assets);
   }, [assets]);

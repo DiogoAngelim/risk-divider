@@ -6,7 +6,6 @@ export default function HeaderTabs() {
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
   const location = useLocation();
 
-  // Determine the next page based on current location
   const getNextPagePath = () => {
     switch (location.pathname) {
       case '/profile':
@@ -32,7 +31,7 @@ export default function HeaderTabs() {
     }
   }, []);
   return (
-    <div className="fixed header-wrapper top-0 left-0 w-full z-[100] bg-white z-10">
+  <div className="fixed header-wrapper top-0 left-0 w-full z-[100] bg-white">
       <div className="flex justify-between h-[64rem] border-b-pale-grey-two border-b-solid border-b-[1rem]">
         <div className="flex">
           <button

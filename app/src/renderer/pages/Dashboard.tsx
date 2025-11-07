@@ -73,13 +73,12 @@ export default function DashboardPage() {
   }, [assets]);
 
   const hasVisibleSell = useMemo(() => {
-    if (!hasHoldings) return false; // No toggle if no holdings
-    // Check if there would be sell actions if trading were enabled (without additional contribution)
+  if (!hasHoldings) return false;
     const hypotheticalActions = rebalancePortfolio(
       assets,
       optimalWeights,
-      0, // Use base scenario without additional contribution
-      true, // Force trading enabled to check for potential sells
+  0,
+  true,
       portfolioValue
     );
     return hypotheticalActions.some(a => a.action === 'sell' && a.quantity !== 0 && !Number.isNaN(a.quantity));
