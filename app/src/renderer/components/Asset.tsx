@@ -19,14 +19,21 @@ export default function Asset({ suggestion, country, onRemove }: AssetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Map exchange codes to country codes for formatting
+  const countryMap: Record<string, string> = {
+    B3: 'BR',
+    // add more mappings if needed
+  };
+  const displayCountry = countryMap[country] || country;
   const openPrice = closePrices.at(-2) ?? 0;
   const closePrice = closePrices.at(-1) ?? 0;
   const changeValue = closePrice - openPrice;
   const variation = ((dailyChange.at(-1) ?? 0) * 100).toFixed(2);
-  const signal = openPrice > closePrice ? "" : "+";
-  const color = signal === "+" ? "#37c171" : "#ed0123";
-  const formattedChange = `${signal}${getFormattedPrice(changeValue, country)} (${variation}%)`;
-  const formattedClose = getFormattedPrice(closePrice, country);
+  const isPositive = changeValue >= 0;
+  const color = isPositive ? "#37c171" : "#ed0123";
+  const formattedChange = `${isPositive ? '+' : ''}${getFormattedPrice(Math.abs(changeValue), displayCountry)} (${variation}%)`;
+  const formattedClose = getFormattedPrice(closePrice, displayCountry);
+  console.log('Asset country:', country, 'displayCountry:', displayCountry, 'closePrice:', closePrice, 'formattedClose:', formattedClose);
 
   useEffect(() => {
     const element = containerRef.current;

@@ -1,5 +1,4 @@
 import { ensureD3, type D3Global } from "../vendor/d3";
-import { updateRecommendedIcon } from "./updateRecommendedIcon";
 
 interface PortfolioData {
   symbols: string[];
@@ -201,7 +200,7 @@ export default async function renderChart(exchange: string = 'US'): Promise<void
         .attr("stroke", "transparent")
         .style("pointer-events", "all");
 
-      updateRecommendedIcon();
+      // Note: updateRecommendedIcon is now called from Chart component with proper assets parameter
 
       iconGroup.on("click", () => {
         const names = (data || []).map(d => d.name);

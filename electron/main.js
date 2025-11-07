@@ -65,19 +65,14 @@ async function createWindow() {
   });
 
   mainWindow.removeMenu();
-  const profile = store.get('investment');
-  const assets = store.get('assets');
-
   const indexScreen = getHTMLPath('index.html');
   
   if (isDev) {
       mainWindow.loadURL("http://localhost:5173");
-      // Only open dev tools in development
       if (!isProduction) {
         mainWindow.webContents.openDevTools();
       }
   } else {
-    // Always load index.html and let React Router handle routing
     mainWindow.loadFile(indexScreen);
   }
 

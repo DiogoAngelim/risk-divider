@@ -30,16 +30,27 @@ export default function Chart({ country, assets }: ChartProps) {
       await renderChart(country);
       if (cancelled) return;
       lastCountryRef.current = country;
+
+      // Update icon after chart is rendered
+      requestAnimationFrame(() => {
+        if (!cancelled) {
+          updateRecommendedIcon(assets ?? []);
+        }
+      });
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [country]);
+  }, [country, assets]);
 
   useEffect(() => {
     if (!lastCountryRef.current) return;
-    updateRecommendedIcon(assets ?? []);
+
+    // Use requestAnimationFrame to ensure DOM has been updated after any chart rendering
+    requestAnimationFrame(() => {
+      updateRecommendedIcon(assets ?? []);
+    });
   }, [assets]);
 
   return <svg ref={svgRef} id="recommended" width="548" height="280" />;

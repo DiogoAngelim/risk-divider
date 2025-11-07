@@ -31,12 +31,6 @@ export default function DashboardPage() {
   const hasHoldings = useMemo(() => assets.some(a => (a.quantity || 0) > 0), [assets]);
   const effectiveAllowSells = hasHoldings ? allowSells : false;
 
-
-  const hasVisibleSell = useMemo(
-    () => actions.some(a => a.action === 'sell' && a.quantity !== 0 && !Number.isNaN(a.quantity)),
-    [actions]
-  );
-
   useEffect(() => {
     const bodyClasses = [
       'min-h-[100vh]',
@@ -77,6 +71,19 @@ export default function DashboardPage() {
       return sum + quantity * currentPrice;
     }, 0);
   }, [assets]);
+
+  const hasVisibleSell = useMemo(() => {
+    if (!hasHoldings) return false; // No toggle if no holdings
+    // Check if there would be sell actions if trading were enabled (without additional contribution)
+    const hypotheticalActions = rebalancePortfolio(
+      assets,
+      optimalWeights,
+      0, // Use base scenario without additional contribution
+      true, // Force trading enabled to check for potential sells
+      portfolioValue
+    );
+    return hypotheticalActions.some(a => a.action === 'sell' && a.quantity !== 0 && !Number.isNaN(a.quantity));
+  }, [assets, optimalWeights, portfolioValue, hasHoldings]);
 
   const onContributionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target;

@@ -228,7 +228,7 @@ export default function OptimizePage() {
               </span>
             </div>
             <div
-              className={`optimize-button p-[1rem] rounded-[40rem] bg-gradient-to-r from-[#fdd368] via-[#495dc6] to-[#fdd368] transition-transform duration-300 inline-block mt-[50rem]${buttonActive ? " active gradient-border" : ""
+              className={`optimize-button p-[1rem] rounded-[40rem] bg-gradient-to-r from-[#fdd368] via-[#495dc6] to-[#fdd368] transition-transform duration-300 inline-block mt-[50rem]${optimizationReady === false ? " active gradient-border" : ""
                 }`}
             >
               <button

@@ -1,10 +1,1 @@
-<!-- by TradingView --><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="18" height="18" fill="#F0F3FA"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M14 4H4V8.00009H5V4.99991H13V12.9999H10V14H14V4ZM5 14V12.9999V11V9.00009H4V14H5ZM6.43545 9H9V14H6.43545C6.19593 14 6 13.7936 6 13.5413V9.45873C6 9.2064 6.19593 9 6.43545 9ZM7.21367 10H9V13H7.21367C7.09612 13 7 12.8761 7 12.7248V12H8V11H7V10.2752C7 10.1239 7.09616 10 7.21367 10Z" fill="url(#paint0_linear_5825_208636)"/>
-<defs>
-<linearGradient id="paint0_linear_5825_208636" x1="14" y1="4" x2="4" y2="14" gradientUnits="userSpaceOnUse">
-<stop stop-color="#F4ED71"/>
-<stop offset="0.560696" stop-color="#E8683D"/>
-</linearGradient>
-</defs>
-</svg>
+<svg fill="none" height="18" viewBox="0 0 18 18" width="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="14" x2="4" y1="4" y2="14"><stop offset="0" stop-color="#f4ed71"/><stop offset=".560696" stop-color="#e8683d"/></linearGradient><path d="m0 0h18v18h-18z" fill="#f0f3fa"/><path clip-rule="evenodd" d="m14 4h-10v4.00009h1v-3.00018h8v7.99999h-3v1.0001h4zm-9 10v-1.0001-1.9999-1.99991h-1v4.99991zm1.43545-5h2.56455v5h-2.56455c-.23952 0-.43545-.2064-.43545-.4587v-4.08257c0-.25233.19593-.45873.43545-.45873zm.77822 1h1.78633v3h-1.78633c-.11755 0-.21367-.1239-.21367-.2752v-.7248h1v-1h-1v-.7248c0-.1513.09616-.2752.21367-.2752z" fill="url(#a)" fill-rule="evenodd"/></svg>

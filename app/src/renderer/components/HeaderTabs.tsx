@@ -1,9 +1,24 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { useEffect, useRef } from "react";
 import { electronAPI } from "../lib/electronAPI";
 
 export default function HeaderTabs() {
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const location = useLocation();
+
+  // Determine the next page based on current location
+  const getNextPagePath = () => {
+    switch (location.pathname) {
+      case '/profile':
+        return '/assets';
+      case '/assets':
+        return '/portfolio';
+      case '/portfolio':
+        return '/dashboard';
+      default:
+        return '/dashboard';
+    }
+  };
 
   useEffect(() => {
     try {
@@ -90,7 +105,7 @@ export default function HeaderTabs() {
         </div>
 
         <NavLink
-          to="/dashboard"
+          to={getNextPagePath()}
           className="next-page hover:bg-iris active:bg-[#758ce0] rounded-bl-[30rem] bg-denim-blue flex gap-spacing-xs items-center justify-center w-[255rem] pl-[20rem] max-md:hidden"
         >
           <>

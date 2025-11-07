@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { electronAPI } from "../lib/electronAPI";
 import init from "../../assets-api-wasm/pkg/stock_fetcher.js";
 import fetchAssets from "../lib/fetchAssets.ts";
+import { updateRecommendedIcon } from "../lib/chart/updateRecommendedIcon";
 import type { Asset as AssetTypeBase } from "../../types/asset";
 import AssetSearch from "../components/AssetSearch";
 import AssetsGrid from "../components/AssetsGrid";
@@ -107,6 +108,11 @@ export default function AssetsPage() {
     window.addEventListener("recommended:add", onRecommendedAdd as EventListener);
     return () => window.removeEventListener("recommended:add", onRecommendedAdd as EventListener);
   }, [country]);
+
+  // Ensure the recommended icon stays in sync with assets
+  useEffect(() => {
+    updateRecommendedIcon(assets);
+  }, [assets]);
 
   const handleSelect = async (item: AssetTypeBase) => {
 
