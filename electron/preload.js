@@ -39,10 +39,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
     set: (key, value) => ipcRenderer.invoke('store:set', key, value),
     delete: (key) => ipcRenderer.invoke('store:delete', key)
   },
+  basePath: () => ipcRenderer.invoke('basePath'),
   runAI: (args) => {
     return new Promise(async (resolve, reject) => {
-      const base = await ipcRenderer.invoke('basePath');
-      const binaryPath = join(base, 'bin', 'ai');
+      const binaryBase = await ipcRenderer.invoke('binaryPath');
+      const binaryPath = join(binaryBase, 'bin', 'ai');
 
       const proc = spawn(binaryPath, args, {
         detached: true,

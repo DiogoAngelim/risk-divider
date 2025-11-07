@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { electronAPI } from "../lib/electronAPI";
+import { StaticImage } from '../components/AssetImage';
 import type { Asset } from "../../types/asset";
 
 export default function OptimizePage() {
@@ -219,7 +220,7 @@ export default function OptimizePage() {
       <div className="feedback-wrapper">
         <div className="flex items-center justify-center">
           <div className="my-[70rem] text-center">
-            <img className="mb-[30rem] m-auto" src="../common/icons/step-3/error.svg" width="550" alt="Image" />
+            <StaticImage className="mb-[30rem] m-auto" src="/common/icons/step-3/error.svg" width="550" alt="Image" />
             <div className="w-[525rem] m-auto">
               <span className="text-style-19">
                 You did it! You created your portfolio. With the right allocation, it can

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import fetchAssets from "../lib/fetchAssets";
 import type { Asset as AssetTypeBase } from "../../types/asset";
+import AssetImage from './AssetImage';
 
 interface AssetSearchProps {
   country: string | null;
@@ -110,20 +111,12 @@ export default function AssetSearch({ country, onSelect }: AssetSearchProps) {
                 onMouseDown={() => handleSelect(item)}
               >
                 <div className="flex items-center">
-                  {item.image ? (
-                    <img
-                      src={item.image.replace("/vesple/optimalstocks/", "../common/")}
-                      alt={item.symbol}
-                      className="w-[20rem] h-[20rem] mr-[20rem]"
-                    />
-                  ) : (
-                    <img
-                      alt="Image"
-                      width={18}
-                      className="placeholder w-[20rem] h-[20rem] mr-[20rem]"
-                      src="../common/icons/icon-256.png"
-                    />
-                  )}
+                  <AssetImage
+                    src={item.image}
+                    alt={item.symbol}
+                    className="w-[20rem] h-[20rem] mr-[20rem]"
+                    isAssetImage={true}
+                  />
                   <div className="w-[119rem] text-custom-lg font-semibold text-dark uppercase">
                     {item.symbol}
                   </div>

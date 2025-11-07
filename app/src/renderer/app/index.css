@@ -145,7 +145,7 @@
   }
 
   [contenteditable] {
-    cursor: url(../common/icons/step-1/edit-dark.svg), auto;
+    cursor: url(/common/icons/step-1/edit-dark.svg), auto;
     @apply whitespace-nowrap overflow-hidden;
   }
 

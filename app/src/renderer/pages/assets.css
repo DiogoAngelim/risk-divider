@@ -71,7 +71,7 @@
 
 
   .autocomplete-image:not(:has(img)) {
-    background-image: url('../common/icons/icon-256.png');
+    background-image: url('/common/icons/icon-256.png');
     @apply bg-[length:18rem] w-[18rem] h-[18rem];
     filter: contrast(0.8) opacity(0.6) grayscale(1);
   }

@@ -4,12 +4,18 @@ import { fileURLToPath } from 'url';
 import Store from 'electron-store';
 
 const isDev = process.env.NODE_ENV === "development";
+const isProduction = process.env.NODE_ENV === "production" || app.isPackaged;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 function getBasePath() {
   return app.isPackaged
-    ? join(process.resourcesPath, 'app')
+    ? join(process.resourcesPath, 'dist')
+    : join(__dirname, '../app');
+}
+function getBinaryPath() {
+  return app.isPackaged
+    ? process.resourcesPath
     : join(__dirname, '../app');
 }
 function getHTMLPath(file) {
@@ -35,6 +41,7 @@ ipcMain.handle('store:delete', (_event, key) => {
 });
 
 ipcMain.handle('basePath', () => getBasePath());
+ipcMain.handle('binaryPath', () => getBinaryPath());
 
 let mainWindow;
 
@@ -52,8 +59,8 @@ async function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: false,
-      webSecurity: false,
-      devTools: !app.isPackaged, 
+      webSecurity: isProduction,
+      devTools: !isProduction,
     }
   });
 
@@ -61,21 +68,17 @@ async function createWindow() {
   const profile = store.get('investment');
   const assets = store.get('assets');
 
-  const assetsScreen = getHTMLPath('assets/index.html');
   const indexScreen = getHTMLPath('index.html');
-  const portfolioScreen = getHTMLPath('dashboard/index.html');
   
   if (isDev) {
       mainWindow.loadURL("http://localhost:5173");
-      mainWindow.webContents.openDevTools();
+      // Only open dev tools in development
+      if (!isProduction) {
+        mainWindow.webContents.openDevTools();
+      }
   } else {
-    if (assets && assets.length > 1) {
-      mainWindow.loadFile(portfolioScreen);
-    } else if (profile && profile.length > 0) {
-      mainWindow.loadFile(assetsScreen);
-    } else {
-      mainWindow.loadFile(indexScreen);
-    }
+    // Always load index.html and let React Router handle routing
+    mainWindow.loadFile(indexScreen);
   }
 
   mainWindow.show();
@@ -86,6 +89,31 @@ async function createWindow() {
     mainWindow.webContents.send('assets', store.get('assets'));
     mainWindow.webContents.send('investment', store.get('investment'));
   });
+
+  // Disable dev tools keyboard shortcuts in production
+  if (isProduction) {
+    mainWindow.webContents.on('before-input-event', (event, input) => {
+      // Disable F12
+      if (input.key === 'F12') {
+        event.preventDefault();
+      }
+      
+      // Disable Ctrl+Shift+I (Windows/Linux) and Cmd+Option+I (Mac)
+      if ((input.control || input.meta) && input.shift && input.key === 'I') {
+        event.preventDefault();
+      }
+      
+      // Disable Ctrl+Shift+J (Windows/Linux) and Cmd+Option+J (Mac) - Console
+      if ((input.control || input.meta) && input.shift && input.key === 'J') {
+        event.preventDefault();
+      }
+      
+      // Disable Ctrl+U (Windows/Linux) and Cmd+Option+U (Mac) - View Source
+      if ((input.control || input.meta) && input.key === 'U') {
+        event.preventDefault();
+      }
+    });
+  }
 }
 
 app.whenReady().then(createWindow);

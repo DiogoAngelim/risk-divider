@@ -1,27 +1,28 @@
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { StaticImage } from '../components/AssetImage';
 
-export default function NewPage() {
+export default function New() {
   useEffect(() => {
-    const body = document.body;
-    const classes = [
-      "min-h-[100vh]",
-      "bg-gradient-to-br",
-      "from-dark-slate-blue",
-      "to-denim-blue",
-      "to-[106%]",
-      "bg-no-repeat",
+    const bodyClasses = [
+      'min-h-[100vh]',
+      'bg-gradient-to-br',
+      'from-dark-slate-blue',
+      'to-denim-blue',
+      'to-[106%]',
+      'bg-no-repeat',
     ];
-    body.classList.add(...classes);
-    return () => body.classList.remove(...classes);
+    document.body.classList.add(...bodyClasses);
+
+    return () => document.body.classList.remove(...bodyClasses);
   }, []);
 
   return (
     <>
       <div className="text-center">
-        <img
+        <StaticImage
           className="h-[194rem] w-[152rem] m-auto my-[193rem] mb-[33rem]"
-          src="common/icons/splash/cloud.svg"
+          src="/common/icons/splash/cloud.svg"
           alt="Image"
         />
         <div className="w-[320rem] m-auto text-center text-white text-custom-lg leading-tight mb-[32rem]">

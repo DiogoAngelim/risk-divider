@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { electronAPI } from '../lib/electronAPI.ts';
 import getFormattedPrice from '../lib/getFormattedPrice.ts';
+import { StaticImage } from '../components/AssetImage';
 import type { Asset } from '../../types/asset';
 import type { RebalanceAction } from '../../types/action';
 import { rebalancePortfolio } from '../lib/rebalancePortfolio.ts';
@@ -111,7 +112,7 @@ export default function DashboardPage() {
     <>
 
       <div className="max-w-[1224rem] m-auto px-[20rem] relative top-[8rem]">
-        <img className="pt-[22rem] w-[120rem]" src="../common/icons/logo-white.png" alt="Image" />
+        <StaticImage className="pt-[22rem] w-[120rem]" src="/common/icons/logo-white.png" alt="Image" />
       </div>
       <div className="mt-[36rem] max-w-[1224rem] m-auto px-[20rem]">
         <div className="portfolio-container border-cloudy-blue border-[1rem] border-solid max-w-[1224rem] min-h-[618rem] bg-white rounded-[8rem]">

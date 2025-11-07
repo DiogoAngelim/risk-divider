@@ -1,4 +1,5 @@
 import type { Asset } from '../../types/asset';
+import AssetImage from './AssetImage';
 
 interface Props {
   assets: Asset[];
@@ -17,7 +18,6 @@ export default function AssetsTable({ assets }: Props) {
       </thead>
       <tbody className="assets-table">
         {assets.map((asset, idx) => {
-          const icon = asset.image?.replace('/vesple/optimalstocks/', '../common/');
           const name = String(asset.name || '')
             .toLowerCase()
             .split(' ')
@@ -26,11 +26,13 @@ export default function AssetsTable({ assets }: Props) {
           return (
             <tr key={idx}>
               <td className="py-[14rem] w-[60rem] h-[45rem]">
-                {icon ? (
-                  <img src={icon} alt="Image" />
-                ) : (
-                  <img src="../common/icons/icon-256.png" alt="Image" width={18} className="placeholder" />
-                )}
+                <AssetImage
+                  src={asset.image}
+                  alt="Image"
+                  width={18}
+                  className={asset.image ? "" : "placeholder"}
+                  isAssetImage={true}
+                />
               </td>
               <td className="text-[18rem] uppercase w-[126rem] font-[500]">{asset.symbol}</td>
               <td className="text-style-6 pr-[40rem]">{name}</td>

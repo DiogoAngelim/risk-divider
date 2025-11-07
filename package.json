@@ -8,8 +8,9 @@
     "dev": "concurrently \"npm:dev:react\" \"npm:dev:electron\"",
     "dev:react": "cd app && vite",
     "dev:electron": "wait-on tcp:5173 && cross-env NODE_ENV=development electron-forge start",
-    "build": "cd app && vite build && electron-forge package",
+    "build": "cd app && cross-env NODE_ENV=production vite build && cd .. && cross-env NODE_ENV=production electron-forge package",
     "start": "electron-forge start",
+    "start:prod": "cross-env NODE_ENV=production electron-forge start",
     "lint": "cd app && eslint ."
   },
   "dependencies": {
@@ -61,7 +62,31 @@
           "unpack": "app/assets-api-wasm/pkg/**/*"
         },
         "extraResource": [
-          "app"
+          "app/dist",
+          "app/bin"
+        ],
+        "ignore": [
+          "^/app/python($|/)",
+          "^/app/src($|/)",
+          "^/node_modules($|/)",
+          "^/data($|/)",
+          "^/.git($|/)",
+          "^/.vscode($|/)",
+          "^/.DS_Store$",
+          "^/README.md$",
+          "^/.gitignore$",
+          "^/.eslintrc",
+          "^/tsconfig",
+          "^/vite.config",
+          "^/tailwind.config",
+          "^/postcss.config",
+          "^/app/node_modules($|/)",
+          "^/app/src($|/)",
+          "^/app/vite.config.ts$",
+          "^/app/tsconfig",
+          "^/app/tailwind.config.js$",
+          "^/app/postcss.config.js$",
+          "^/app/eslint.config.js$"
         ]
       },
       "makers": [
