@@ -1,6 +1,8 @@
 {
   "name": "risk-divider",
   "version": "1.0.0",
+  "description": "A app for analyzing and managing investment risks.",
+  "author": "Diogo Angelim",
   "private": true,
   "main": "electron/main.js",
   "type": "module",
