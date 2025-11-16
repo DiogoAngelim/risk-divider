@@ -2,6 +2,15 @@
 
 Risk Divider is a cutting-edge investment platform that empowers you to build, analyze, and optimize your portfolio across global markets, cryptocurrencies, and forex. Harnessing the power of AI, modern portfolio theory, and advanced analytics, Risk Divider helps you make smarter investment decisions with confidence.
 
+<table>
+  <tr>
+    <td><img src="exchange.png" alt="Exchange" style="width:100%;" /></td>
+    <td><img src="assets.png" alt="Assets" style="width:100%;" /></td>
+    <td><img src="portfolio.png" alt="Portfolio" style="width:100%;" /></td>
+    <td><img src="dashboard.png" alt="Dashboard" style="width:100%;" /></td>
+  </tr>
+</table>
+
 ## 🚀 Features
 
 - **Market Selection:** Choose from global stock markets, cryptocurrencies, or forex to tailor your investment strategy.
