@@ -11,7 +11,10 @@
     "build": "cd app && cross-env NODE_ENV=production vite build && cd .. && cross-env NODE_ENV=production electron-forge package",
     "start": "electron-forge start",
     "start:prod": "cross-env NODE_ENV=production electron-forge start",
-    "lint": "cd app && eslint ."
+    "lint": "cd app && eslint .",
+    "make:mac": "cross-env NODE_ENV=production electron-forge make --platform=darwin --arch=x64",
+    "make:win": "cross-env NODE_ENV=production electron-forge make --platform=win32 --arch=x64",
+    "make:linux": "cross-env NODE_ENV=production electron-forge make --platform=linux --arch=x64"
   },
   "dependencies": {
     "@rise8/tailwind-pixel-perfect-preset": "^1.0.1",
