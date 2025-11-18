@@ -1,4 +1,4 @@
-name: Build Electron App
+name: Build and Release Electron App
 
 on:
   push:
@@ -6,16 +6,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-macos:
-    runs-on: macos-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 18
 
       - name: Install dependencies
         run: npm install
@@ -23,37 +27,53 @@ jobs:
       - name: Build React frontend
         run: cd app && npm install && npm run build
 
-      - name: Build macOS app
-        run: npm run make:mac
+      - name: Build Electron App
+        run: |
+          if [ "${{ matrix.os }}" == "macos-latest" ]; then
+            npm run make:mac
+          else
+            npm run make:win
+          fi
 
-      - name: Upload macOS artifacts
-        uses: actions/upload-artifact@v4
+      - name: Set platform variables
+        run: |
+          if [ "${{ matrix.os }}" == "macos-latest" ]; then
+            echo "PLATFORM=mac" >> $GITHUB_ENV
+            echo "OUTPUT=$(ls dist/*.app)" >> $GITHUB_ENV
+          else
+            echo "PLATFORM=win" >> $GITHUB_ENV
+            echo "OUTPUT=$(ls dist/*.exe dist/*.msi dist/*.zip | head -n1)" >> $GITHUB_ENV
+          fi
+
+      - name: Zip build output
+        run: |
+          ZIP_NAME=risk-divider-${PLATFORM}.zip
+          if [ "${PLATFORM}" == "mac" ]; then
+            cd dist
+            zip -r $ZIP_NAME *.app
+          else
+            cd dist
+            powershell Compress-Archive -Path * -DestinationPath $ZIP_NAME
+          fi
+          echo "ZIP_FILE=dist/$ZIP_NAME" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: mac-dist
-          path: out/prod/make/**
+          tag_name: v$(node -p "require('./package.json').version")
+          release_name: v$(node -p "require('./package.json').version")
+          draft: false
+          prerelease: false
 
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install Node
-        uses: actions/setup-node@v4
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build React frontend
-        run: cd app && npm install && npm run build
-
-      - name: Build Windows app
-        run: npm run make:win
-
-      - name: Upload Windows artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows-dist
-          path: out/prod/make/**
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ env.ZIP_FILE }}
+          asset_name: ${{ env.ZIP_FILE | split('/')[-1] }}
+          asset_content_type: application/zip
