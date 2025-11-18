@@ -39,11 +39,12 @@ jobs:
         run: |
           if [ "${{ matrix.os }}" == "macos-latest" ]; then
             echo "PLATFORM=mac" >> $GITHUB_ENV
-            echo "OUTPUT=$(ls dist/*.app)" >> $GITHUB_ENV
+            BUILD_FILE=$(ls dist/*.app | head -n1)
           else
             echo "PLATFORM=win" >> $GITHUB_ENV
-            echo "OUTPUT=$(ls dist/*.exe dist/*.msi dist/*.zip | head -n1)" >> $GITHUB_ENV
+            BUILD_FILE=$(ls dist/*.exe dist/*.msi dist/*.zip | head -n1)
           fi
+          echo "BUILD_FILE=$BUILD_FILE" >> $GITHUB_ENV
 
       - name: Zip build output
         run: |
@@ -56,6 +57,11 @@ jobs:
             powershell Compress-Archive -Path * -DestinationPath $ZIP_NAME
           fi
           echo "ZIP_FILE=dist/$ZIP_NAME" >> $GITHUB_ENV
+
+      - name: Set asset name
+        run: |
+          ZIP_BASENAME=$(basename $ZIP_FILE)
+          echo "ASSET_NAME=$ZIP_BASENAME" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         id: create_release
@@ -75,5 +81,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ env.ZIP_FILE }}
-          asset_name: ${{ env.ZIP_FILE | split('/')[-1] }}
+          asset_name: ${{ env.ASSET_NAME }}
           asset_content_type: application/zip
