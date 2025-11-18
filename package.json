@@ -1,6 +1,6 @@
 {
   "name": "risk-divider",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A app for analyzing and managing investment risks.",
   "author": "Diogo Angelim",
   "private": true,
@@ -14,15 +14,15 @@
     "start": "electron-forge start",
     "start:prod": "cross-env NODE_ENV=production electron-forge start",
     "lint": "cd app && eslint .",
-    "make:mac": "npm run build && cross-env NODE_ENV=production electron-forge make --platform=darwin --arch=x64",
-    "make:win": "npm run build && cross-env NODE_ENV=production electron-forge make --platform=win32 --arch=x64",
-    "make:linux": "npm run build && cross-env NODE_ENV=production electron-forge make --platform=linux --arch=x64"
+    "make:mac": "cross-env NODE_ENV=production electron-forge make --platform=darwin --arch=x64",
+    "make:win": "cross-env NODE_ENV=production electron-forge make --platform=win32 --arch=x64",
+    "make:linux": "cross-env NODE_ENV=production electron-forge make --platform=linux --arch=x64"
   },
   "dependencies": {
     "@rise8/tailwind-pixel-perfect-preset": "^1.0.1",
     "electron-settings": "^4.0.2",
     "electron-squirrel-startup": "^1.0.0",
-    "electron-store": "^8.2.0",
+    "electron-store": "^8.1.0",
     "path": "^0.12.7",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -66,10 +66,7 @@
     "forge": {
       "packagerConfig": {
         "icon": "electron/icon.icns",
-        "asar": {
-          "unpack": "app/assets-api-wasm/pkg/**/*",
-          "unpackDir": "app/assets-api-wasm/pkg"
-        },
+        "asar": false,
         "extraResource": [
           "app/dist",
           "app/bin"
@@ -120,12 +117,7 @@
           "config": {}
         }
       ],
-      "plugins": [
-        {
-          "name": "@electron-forge/plugin-auto-unpack-natives",
-          "config": {}
-        }
-      ],
+      "plugins": [],
       "buildIdentifier": "prod",
       "makeOptions": {
         "dir": "dist"
