@@ -1,0 +1,15 @@
+{
+  "name": "stock_fetcher",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "stock_fetcher_bg.wasm",
+    "stock_fetcher.js",
+    "stock_fetcher.d.ts"
+  ],
+  "main": "stock_fetcher.js",
+  "types": "stock_fetcher.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
