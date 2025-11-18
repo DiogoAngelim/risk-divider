@@ -1,6 +1,6 @@
 {
   "name": "risk-divider",
-  "version": "1.0.1",
+  "version": "1.0.5",
   "description": "A app for analyzing and managing investment risks.",
   "author": "Diogo Angelim",
   "private": true,
@@ -14,9 +14,9 @@
     "start": "electron-forge start",
     "start:prod": "cross-env NODE_ENV=production electron-forge start",
     "lint": "cd app && eslint .",
-    "make:mac": "cross-env NODE_ENV=production electron-forge make --platform=darwin --arch=x64",
-    "make:win": "cross-env NODE_ENV=production electron-forge make --platform=win32 --arch=x64",
-    "make:linux": "cross-env NODE_ENV=production electron-forge make --platform=linux --arch=x64"
+    "make:mac": "npm run build && cross-env NODE_ENV=production electron-forge make --platform=darwin --arch=x64",
+    "make:win": "npm run build && cross-env NODE_ENV=production electron-forge make --platform=win32 --arch=x64",
+    "make:linux": "npm run build && cross-env NODE_ENV=production electron-forge make --platform=linux --arch=x64"
   },
   "dependencies": {
     "@rise8/tailwind-pixel-perfect-preset": "^1.0.1",
