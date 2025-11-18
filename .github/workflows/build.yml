@@ -1,4 +1,4 @@
-name: Build and Release Electron App
+name: Build Electron App
 
 on:
   push:
@@ -6,17 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-
+  build-macos:
+    runs-on: macos-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node 22
+      - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -27,57 +23,37 @@ jobs:
       - name: Build React frontend
         run: cd app && npm install && npm run build
 
-      - name: Build Electron App
-        run: |
-          if [ "${{ matrix.os }}" == "macos-latest" ]; then
-            npm run make:mac
-          else
-            npm run make:win
-          fi
+      - name: Build macOS app
+        run: npm run make:mac
 
-      - name: Create dist folder
-        run: mkdir -p dist
-
-      - name: Set platform variables and find build output
-        run: |
-          if [ "${{ matrix.os }}" == "macos-latest" ]; then
-            echo "PLATFORM=mac" >> $GITHUB_ENV
-            BUILD_FILE=$(find out/make/*mac* -name "*.app" | head -n1)
-          else
-            echo "PLATFORM=win" >> $GITHUB_ENV
-            BUILD_FILE=$(find out/make/*win* -name "*.exe" | head -n1)
-          fi
-          echo "BUILD_FILE=$BUILD_FILE" >> $GITHUB_ENV
-
-      - name: Zip build output
-        run: |
-          ZIP_NAME=risk-divider-${PLATFORM}.zip
-          cd $(dirname "$BUILD_FILE")
-          zip -r ../../dist/$ZIP_NAME $(basename "$BUILD_FILE")
-          echo "ZIP_FILE=dist/$ZIP_NAME" >> $GITHUB_ENV
-
-      - name: Set asset name
-        run: |
-          ZIP_BASENAME=$(basename $ZIP_FILE)
-          echo "ASSET_NAME=$ZIP_BASENAME" >> $GITHUB_ENV
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: v$(node -p "require('./package.json').version")
-          release_name: v$(node -p "require('./package.json').version")
-          draft: false
-          prerelease: false
+          name: mac-dist
+          path: out/prod/make/**
 
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.ZIP_FILE }}
-          asset_name: ${{ env.ASSET_NAME }}
-          asset_content_type: application/zip
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React frontend
+        run: cd app && npm install && npm run build
+
+      - name: Build Windows app
+        run: npm run make:win
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-dist
+          path: out/prod/make/**
