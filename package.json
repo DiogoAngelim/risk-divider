@@ -124,7 +124,11 @@
           "name": "@electron-forge/plugin-auto-unpack-natives",
           "config": {}
         }
-      ]
+      ],
+      "buildIdentifier": "prod",
+      "makeOptions": {
+        "dir": "dist"
+      }
     }
   }
 }
