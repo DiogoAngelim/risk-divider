@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -35,27 +35,25 @@ jobs:
             npm run make:win
           fi
 
-      - name: Set platform variables
+      - name: Create dist folder
+        run: mkdir -p dist
+
+      - name: Set platform variables and find build output
         run: |
           if [ "${{ matrix.os }}" == "macos-latest" ]; then
             echo "PLATFORM=mac" >> $GITHUB_ENV
-            BUILD_FILE=$(ls dist/*.app | head -n1)
+            BUILD_FILE=$(find out/make/*mac* -name "*.app" | head -n1)
           else
             echo "PLATFORM=win" >> $GITHUB_ENV
-            BUILD_FILE=$(ls dist/*.exe dist/*.msi dist/*.zip | head -n1)
+            BUILD_FILE=$(find out/make/*win* -name "*.exe" | head -n1)
           fi
           echo "BUILD_FILE=$BUILD_FILE" >> $GITHUB_ENV
 
       - name: Zip build output
         run: |
           ZIP_NAME=risk-divider-${PLATFORM}.zip
-          if [ "${PLATFORM}" == "mac" ]; then
-            cd dist
-            zip -r $ZIP_NAME *.app
-          else
-            cd dist
-            powershell Compress-Archive -Path * -DestinationPath $ZIP_NAME
-          fi
+          cd $(dirname "$BUILD_FILE")
+          zip -r ../../dist/$ZIP_NAME $(basename "$BUILD_FILE")
           echo "ZIP_FILE=dist/$ZIP_NAME" >> $GITHUB_ENV
 
       - name: Set asset name
